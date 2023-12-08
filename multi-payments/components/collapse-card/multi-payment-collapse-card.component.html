@@ -1,0 +1,10 @@
+<div class="collapse-card__header" (click)="hiddenContent = !hiddenContent">
+  <div class="collapse-card__header-label" [translate]="title"></div>
+  <div class="d-flex collapse-card__header-icon" [@rotateArrow]="!hiddenContent"></div>
+</div>
+
+<section class="collapse-card__content" *ngIf="!hiddenContent" [@collapseToggle]>
+  <ng-content></ng-content>
+</section>
+
+

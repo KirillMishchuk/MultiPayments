@@ -1,0 +1,110 @@
+@import "../../styles/index";
+
+.multi-payments {
+  display: flex;
+  flex-flow: column nowrap;
+  min-height: 652px;
+  
+  &__create-button {
+    @include actionButton(auto, $blue, $white, $blue, 36px, 14px, 34px, 500);
+    padding: 0 16px;
+    position: absolute;
+    top: -10px;
+    right: 0;
+    transform: translateY(50%);
+    border: none;
+  }
+  
+  &__card-body {
+    margin-bottom: 10px;
+    flex: 1 1 auto;
+    @include boxShadow(3px, 3px, 4px, 0, $shadowColor);
+    background-color: $white;
+    padding: 25px 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    &_fixed {
+      @include boxShadow(0, 0, 8px, 0, $shadowColor);
+      flex: none;
+      padding: 64px;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+  }
+  
+  .empty-data {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    
+    &_fixed {
+      max-width: 630px;
+      align-items: flex-start;
+    }
+    
+    &__icon {
+      margin-bottom: 25px;
+    }
+    
+    &__title {
+      @include titleText(24px, 32px, $black-12, 500);
+      margin-bottom: 8px;
+    }
+  
+    &__description {
+      @include descriptionText(16px, 24px, 400, $gray-570);
+      hyphens: none;
+      margin-bottom: 16px;
+    }
+    
+    &__create-button {
+      @include actionButton(auto, $blue, $white, $blue, 36px, 14px, 30px, 500);
+      padding: 0 16px;
+      
+      &_fixed {
+        align-self: flex-start;
+      }
+    }
+  }
+  
+  &__active-icon {
+    width: 112px;
+    height: 112px;
+    margin-left: auto;
+    background: $blue-4;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    &:after {
+      content: "";
+      width: 48px;
+      height: 48px;
+      background: var(--multi-icon);
+    }
+  }
+  
+  .content {
+    
+    &__title {
+      @include titleText(16px, 24px, $black, 500);
+      margin-bottom: 16px;
+    }
+    
+    &__multi-payment {
+      margin-bottom: 5px;
+      
+      &_last {
+        margin-bottom: 25px;
+      }
+      
+      &_deactivated {
+        opacity: 0.5;
+        pointer-events: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+@import "../../../../styles/index";
+
+:host {
+  display: block;
+}
+
+.collapse-card {
+  
+  &__header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+  
+  &__header-label {
+    @include titleText(16px, 24px, $black, 500);
+  }
+  
+  &__header-icon {
+    width: 10px;
+    margin-right: 5px;
+    background-color: $black;
+    -webkit-mask: url('/assets/icons/arrow-grey.svg') no-repeat center;
+    mask: url('/assets/icons/arrow-grey.svg') no-repeat center;
+  }
+  
+  &__content {
+    overflow: hidden;
+  }
+}

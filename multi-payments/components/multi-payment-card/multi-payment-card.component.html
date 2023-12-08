@@ -1,0 +1,32 @@
+<div class="multi-payment__img" *ngIf="card?.shortLink">
+  <qrcode class="multi-payment__code" [qrdata]="card?.shortLink"
+          [width]="48"
+          [errorCorrectionLevel]="correctionLevel">
+  </qrcode>
+</div>
+
+<div class="multi-payment__names-container">
+  <div class="multi-payment__name">{{card?.internalName}}</div>
+  <div class="multi-payment__desc">{{card?.externalName}}</div>
+</div>
+
+<div class="multi-payment__dates-container">
+  <div class="multi-payment__name multi-payment__name_thin">
+    {{'multi-payments.content.valid' | translate}}:&nbsp;
+    {{card?.validFrom| date: 'dd.MM.yyyy':langService.language}}
+  </div>
+
+  <div class="multi-payment__desc">{{'multi-payments.content.created-on' | translate}}:&nbsp;
+    {{card?.createdAt| date: 'dd.MM.yyyy, h:mm a':langService.language}}</div>
+</div>
+
+<div class="multi-payment__amount">
+  {{card?.amountDue | currencyScale: card?.currency: currencySettings}}
+</div>
+
+<div class="multi-payment__actions" [class.multi-payment__actions_self-start]="card?.amountDue <= 0">
+  <div class="multi-payment__details" [translate]="'multi-payments.content.view-details'"
+       (click)="$event.stopImmediatePropagation(); navigateToDetails.emit(card)"></div>
+  <div class="multi-payment__deactivate" [translate]="'multi-payments.content.deactivate'"
+       (click)="$event.stopImmediatePropagation(); deactivateTemplate.emit(card)"></div>
+</div>

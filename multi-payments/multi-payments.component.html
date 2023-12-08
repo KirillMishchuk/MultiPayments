@@ -1,0 +1,64 @@
+<section class="multi-payments">
+  <ng-container *ngIf="isLoading">
+    <ng-container *ngTemplateOutlet="loader"></ng-container>
+  </ng-container>
+ 
+  <ng-container *ngIf="canInvite$ | async">
+    <ng-container *ngIf="(multiPayments$|async) as multiPayments; else loader">
+      <section class="multi-payments__content content" *ngIf="multiPayments?.length; else noPayments">
+        <ng-container *ngFor="let payment of multiPayments | filterMultiPayments : false; let index = index; let last = last">
+          <ng-container *ngTemplateOutlet="paymentSection;
+                context: {title: 'multi-payments.content.active', card : payment, index : index, last: last, active: true}">
+          </ng-container>
+        </ng-container>
+  
+        <ng-container *ngIf="multiPayments?.length === 1">
+          <ng-container *ngTemplateOutlet="oneActivePayment"></ng-container>
+        </ng-container>
+      </section>
+    </ng-container>
+  </ng-container>
+
+
+  <ng-template #noPayments>
+    <section class="multi-payments__card-body">
+      <section class="multi-payments__empty-data empty-data">
+        <svg-icon src="assets/icons/no-multi-payments.svg" class="d-flex empty-data__icon"></svg-icon>
+        <div class="empty-data__title" [translate]="'multi-payments.no-payments'"></div>
+        <div class="empty-data__description" [translate]="'multi-payments.no-payments-desc'"></div>
+        <button class="btn btn-link empty-data__create-button" (click)="navigateToCreation()" *appBusinessLimitation>
+          {{'shared.buttons.create-new' | translate }}</button>
+      </section>
+    </section>
+  </ng-template>
+
+  <ng-template #oneActivePayment>
+    <section class="multi-payments__card-body multi-payments__card-body_fixed">
+      <section class="multi-payments__empty-data empty-data empty-data_fixed">
+        <div class="empty-data__title" [translate]="'multi-payments.active-price-tag.title'"></div>
+        <div class="empty-data__description" [translate]="'multi-payments.active-price-tag.desc'"></div>
+        <button class="btn btn-link empty-data__create-button empty-data__create-button_fixed" (click)="navigateToCreation()" *appBusinessLimitation>
+          {{'shared.buttons.create-new' | translate }}</button>
+      </section>
+
+      <div class="multi-payments__active-icon" [style]="'--multi-icon:url(assets/icons/multi-payments_active.svg) center/contain no-repeat'"></div>
+    </section>
+  </ng-template>
+</section>
+
+<ng-template #paymentSection let-title="title" let-card="card" let-index="index" let-last="last" let-active="active">
+  <div class="content__title" [translate]="title" *ngIf="!index"></div>
+  <app-multi-payment-card class="content__multi-payment multi-payment"
+                          [ngClass]="{'content__multi-payment_last': last, 'content__multi-payment_deactivated': !active}"
+                          [card]="card"
+                          [currencySettings]="currencySettings$|async"
+                          (deactivateTemplate)="onDeactivateTemplate($event)"
+                          (navigateToDetails)="navigateToDetails($event)"></app-multi-payment-card></ng-template>
+
+<ng-template #loader>
+  <div class="panel">
+    <app-loader></app-loader>
+  </div>
+</ng-template>
+
+<router-outlet name="multiPaymentOutlet" (deactivate)="closeModal($event)"></router-outlet>

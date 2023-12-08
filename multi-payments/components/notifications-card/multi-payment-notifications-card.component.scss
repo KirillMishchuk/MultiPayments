@@ -1,0 +1,19 @@
+@import "../../../../styles/index";
+
+:host {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 11px 0 16px;
+  background: $white;
+  border-left: 5px solid $blue;
+  height: 40px;
+}
+
+.notification-card {
+  
+  &__label {
+    @include H3Text;
+  }
+}

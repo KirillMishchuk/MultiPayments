@@ -1,0 +1,10 @@
+<span class="notification-card__label" [translate]="notification?.title"></span>
+<div class="custom-control custom-switch" *ngIf="notification">
+  <input [name]="notification.alias" [(ngModel)]="notification.value"
+         type="checkbox" class="custom-control-input"
+         [id]="notification.alias"
+         (click)="onChange($event)"/>
+  <label class="custom-control-label" [for]="notification.alias"></label>
+</div>
+
+
